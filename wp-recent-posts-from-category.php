@@ -65,7 +65,9 @@ if(!class_exists('Rpfc'))
 			
 			$rpfc_query = new WP_Query( $rpfc_args );
 			
+			
 			$output = '<div class="' . $container . '">';
+			$output .= '<div class="rpfc-header">Updates</div><hr/>';
 			
 			if ( $rpfc_query->have_posts() ) {
 				while ( $rpfc_query->have_posts() ) {

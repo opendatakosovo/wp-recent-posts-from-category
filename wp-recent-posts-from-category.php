@@ -37,7 +37,8 @@ if(!class_exists('Rpfc'))
         public function __construct() {
             add_action('admin_menu', array(&$this, 'add_menu'));
 			add_action('admin_enqueue_scripts', array(&$this, 'add_admin_scripts'));
-			add_action('init', array(&$this, 'init'));				
+			add_action('wp_enqueue_scripts', array(&$this, 'add_style'));
+			add_action('init', array(&$this, 'init'));
         }
 
 		public function rpfc_recent_posts_from_category_display($atts) {
@@ -67,14 +68,16 @@ if(!class_exists('Rpfc'))
 			$output = '<div class="' . $container . '">';
 			
 			if ( $rpfc_query->have_posts() ) {
-        		$output .= '<ul>';
 				while ( $rpfc_query->have_posts() ) {
 					$rpfc_query->the_post();
-					$output .= '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a>';
-					if ($meta) { $output .= '<br><small>' . get_the_author() . ' - ' . get_the_date() . '</small>'; };					
-					$output .= '</li>';
+					$output .= '<a href="' . get_permalink() . '">';
+					$output .= '<div class="rpfc-post-title">' . get_the_title() . '</div>';
+					if ($meta) { $output .= '<br><small>' . get_the_author() . ' - ' . get_the_date() . '</small>'; };
+					$output .= '<div class="rpfc-post-excerpt">' . get_the_excerpt() . '</div>';
+					$output .= '</a>';
+					$output .= '<br/>';	
+		
 				}
-        		$output .= '</ul>';
 			}
 			
 			wp_reset_postdata();
@@ -149,7 +152,12 @@ if(!class_exists('Rpfc'))
 				wp_enqueue_script('jquery');
 			}
     		wp_enqueue_script( 'rpfc-admin-script', plugins_url('js/wp-recent-posts-from-category.js', __FILE__), array('jquery'), '1.0.1');
-		}	
+		}
+
+		public function add_style($hook) {
+			$css_path = plugins_url( 'css/style.css', __FILE__);
+    		wp_enqueue_style('rpfc-style', $css_path);
+		}
 		
     }
 }

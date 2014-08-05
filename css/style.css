@@ -1,0 +1,14 @@
+.rpfc-container{
+}
+
+.rpfc-container .rpfc-post-title{
+	background-color: #4679b2;
+	color: #fff;
+	padding: 10px;
+}
+
+.rpfc-container .rpfc-post-excerpt{
+	background-color: #efefef;
+	color: #000;
+	padding: 20px;
+}

@@ -72,11 +72,14 @@ if(!class_exists('Rpfc'))
 			if ( $rpfc_query->have_posts() ) {
 				while ( $rpfc_query->have_posts() ) {
 					$rpfc_query->the_post();
+
+					$output .= '<div class="rpfc-post-title-and-excerpt">';
 					$output .= '<a href="' . get_permalink() . '">';
 					$output .= '<div class="rpfc-post-title">' . get_the_title() . '</div>';
 					if ($meta) { $output .= '<br><small>' . get_the_author() . ' - ' . get_the_date() . '</small>'; };
 					$output .= '<div class="rpfc-post-excerpt">' . get_the_excerpt() . '</div>';
 					$output .= '</a>';
+					$output .= '</div>';
 					$output .= '<br/>';	
 		
 				}
